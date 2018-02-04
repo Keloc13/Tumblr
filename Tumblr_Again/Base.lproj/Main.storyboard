@@ -30,11 +30,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="182.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="imageView:P7h-N3-iY0:image" translatesAutoresizingMaskIntoConstraints="NO" id="P7h-N3-iY0">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:P7h-N3-iY0:image" translatesAutoresizingMaskIntoConstraints="NO" id="P7h-N3-iY0">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="183"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="P7h-N3-iY0" firstAttribute="top" secondItem="mXI-dA-sTM" secondAttribute="top" id="9Hr-jp-Peg"/>
+                                                <constraint firstItem="P7h-N3-iY0" firstAttribute="leading" secondItem="mXI-dA-sTM" secondAttribute="leading" id="I2g-2N-A5C"/>
+                                                <constraint firstAttribute="trailing" secondItem="P7h-N3-iY0" secondAttribute="trailing" id="NrM-2S-QBq"/>
                                                 <constraint firstAttribute="bottom" secondItem="P7h-N3-iY0" secondAttribute="bottom" constant="-0.5" id="kMi-gf-Id9"/>
                                             </constraints>
                                         </tableViewCellContentView>
