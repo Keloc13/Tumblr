@@ -97,7 +97,7 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 200.0;//Choose your custom row height
+        return 250.0;//Choose your custom row height
     }
     
 
