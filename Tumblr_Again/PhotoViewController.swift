@@ -67,19 +67,19 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         if let photos = post["photos"] as? [[String: Any]] {
             // 1.
             let photo = photos[0]
-            print("\nPHOTOS:  \(photo)")
+            //print("\nPHOTOS:  \(photo)")
             // 2.
             let originalSize = photo["original_size"] as! [String: Any]
             
-            print("\nORIGINALSIZE: \(originalSize)")
+           // print("\nORIGINALSIZE: \(originalSize)")
             // 3.
             let urlString = originalSize["url"] as! String
             
-            print("\nURLSTRING: \(urlString)" )
+           // print("\nURLSTRING: \(urlString)" )
             // 4.
             let url = URL(string: urlString)
             
-            print("\nURL VALUE: \(String(describing: url))")
+            //print("\nURL VALUE: \(String(describing: url))")
             
             cell.Photo.af_setImage(withURL: url!)
         }
@@ -93,6 +93,11 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Configure YourCustomCell using the outlets that you've defined.
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 200.0;//Choose your custom row height
     }
     
 
