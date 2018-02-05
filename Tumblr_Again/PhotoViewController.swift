@@ -14,6 +14,7 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     let DEBUG = true
     
     @IBOutlet weak var TableOutlet: UITableView!
+    
     var posts: [[String: Any]] = []
 
     override func viewDidLoad() {
@@ -29,6 +30,10 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         let task = session.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print(error.localizedDescription)
+                let alert = UIAlertController(title: "Alert", message: "Error, something went wrong with the network request. Please try again.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
             } else if let data = data,
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                // print(dataDictionary)
@@ -67,19 +72,12 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         if let photos = post["photos"] as? [[String: Any]] {
             // 1.
             let photo = photos[0]
-            //print("\nPHOTOS:  \(photo)")
             // 2.
             let originalSize = photo["original_size"] as! [String: Any]
-            
-           // print("\nORIGINALSIZE: \(originalSize)")
             // 3.
             let urlString = originalSize["url"] as! String
-            
-           // print("\nURLSTRING: \(urlString)" )
             // 4.
             let url = URL(string: urlString)
-            
-            //print("\nURL VALUE: \(String(describing: url))")
             
             cell.Photo.af_setImage(withURL: url!)
         }
@@ -91,13 +89,12 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = TableOutlet.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
         
         // Configure YourCustomCell using the outlets that you've defined.
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 250.0;//Choose your custom row height
+        return 275.0;//Choose your custom row height
     }
     
 
