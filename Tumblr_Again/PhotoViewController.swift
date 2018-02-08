@@ -46,13 +46,24 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
                 
                 // TODO: Reload the table view
                 self.TableOutlet.reloadData()
-
             }
         }
         task.resume()
         // Do any additional setup after loading the view.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = TableOutlet.indexPath(for: cell) {
+            let picture = posts[indexPath.row]
+            let photosViewController = segue.destination as! PhotoDetailsViewController
+            photosViewController.post = picture
+        }
+    }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -81,7 +92,6 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             cell.Photo.af_setImage(withURL: url!)
         }
-        
         return cell
     }
     
@@ -96,16 +106,4 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     {
         return 275.0;//Choose your custom row height
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
