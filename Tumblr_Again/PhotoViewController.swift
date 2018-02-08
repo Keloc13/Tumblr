@@ -55,7 +55,7 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
         if let indexPath = TableOutlet.indexPath(for: cell) {
-            let picture = posts[indexPath.row]
+            let picture = posts[indexPath.section]
             let photosViewController = segue.destination as! PhotoDetailsViewController
             photosViewController.post = picture
         }
@@ -70,15 +70,56 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
         return posts.count
     }
+
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        
+        let profileView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 15;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
+        profileView.layer.borderWidth = 1;
+        
+    
+        // Set the avatar
+        profileView.af_setImage(withURL: URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/avatar")!)
+        headerView.addSubview(profileView)
+        
+        
+        // posts: [[String: Any]]
+        let post = posts[section]
+        let label = post["date"] as! String
+        
+        
+        // create a lable holding the date string
+        let dateLabel = UILabel(frame: CGRect(x: 80, y: 10, width: 200, height: 30))
+        dateLabel.text = label
+        headerView.addSubview(dateLabel)
+        
+        //headerView.title
+        // Add a UILabel for the date here
+        // Use the section number to get the right URL
+        // let label = ...
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50.0
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if DEBUG { print("Entered tableView with URL")}
         let cell = TableOutlet.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
         //if DEBUG { print("Reached end of cell and initialized")}
         //cell.textLabel?.text = "This is row \(indexPath.row)"
-        let post = posts[indexPath.row]
+        let post = posts[indexPath.section]
         
         if let photos = post["photos"] as? [[String: Any]] {
             // 1.
@@ -94,6 +135,7 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         return cell
     }
+    
     
     private func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
         let cell = TableOutlet.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
